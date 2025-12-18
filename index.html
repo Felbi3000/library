@@ -7,8 +7,29 @@
     <title>Library</title>
 </head>
 <body>
-    
-
+    <h1>My awesome library</h1>
+    <ul id="bookList">
+        <li class="book" id="123456">
+            <div class="title">DemoBook</div>
+            <div class="author">Demo author</div>
+            <div class="read"><input type="checkbox"></div>
+            <div class="remove"><button><img src="/images/trash.svg" alt="delete Book"></button></div>
+        </li>
+    </ul>
+    <button id="buttonAddBook" type="button">Add Book</button>
+    <form action="https://httpbin.org/post" method="post" id="formAddBook">
+        <div>
+            <label for="addBookTitle">Book Title:</label>
+            <input type="text" name="addBookTitle" id="addBookTitle">
+        </div>
+        <div>
+            <label for="addAuthor">Author:</label>
+            <input type="text" name="addAuthor" id="addAuthor">
+        </div>
+        
+        <button type="submit">Add</button>
+    </form>
+        
     <script src="script.js"></script>
 </body>
 </html>
