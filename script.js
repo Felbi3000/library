@@ -1,51 +1,73 @@
 
 // create Testbooks
-const TestBook = new Book("Test Title", "Test Author");
+const TestBook = new Book("Test Title", "Test Author", true);
 const TestBook2 = new Book("Test Title2", "Test Author2");
 
 const myLibrary = [TestBook, TestBook2];
 const container = document.querySelector("#bookList");
 
-function Book(title, author) {
+function Book(title, author, read) {
   if (!new.target) {
     throw Error("You must use the 'new' operator to call the constructor");
   }
   this.id = self.crypto.randomUUID();
   this.title = title;
   this.author = author;
-  this.read = false;
+  this.read = read;
 }
 
 
 function updateBookList() {
   // delete list elements
-  for (const item in myLibrary) {
-    // container.removeChild(item);
-    // div.setAttribute("id", "theDiv");
-    // div.textContent = "Hello World!";
-    
-    // Take the ID
-    // look for ID in DOM
-    // delete item in DOM
-  };
+  container.innerHTML = '';
+
   // create list elements
-  for (const item in myLibrary) {
-    let li = document.createElement('li');
-    li.innerText = item.title;
-    container.appendChild(li);
-    
-    
-    // create li item with ID = item.id
-    // const div = document.createElement("div");
+  myLibrary.forEach (item => {
+    const li = document.createElement("li");
+    li.className = "book";
+    li.id = item.id;
 
-    // create divs with classes title, author, read and remove button
+    const titleDiv = document.createElement("div");
+    titleDiv.className = "title";
+    titleDiv.innerText = item.title;
 
-    // parentNode.appendChild(childNode)
-    // div.setAttribute("id", "theDiv");
-    // div.textContent = "Hello World!";
+    const authorDiv = document.createElement("div");
+    authorDiv.className = "author";
+    authorDiv.innerText = item.author;
     
-    // 
-  };
+    const readDiv = document.createElement("div");
+    readDiv.className = "read";
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = item.read;
+    readDiv.appendChild(checkbox);
+
+    const removeDiv = document.createElement("div");
+    removeDiv.className = "remove";
+    const button = document.createElement("button");
+    const img = document.createElement("img");
+    img.src = "/images/trash.svg";
+    img.alt = "delete book";
+    button.appendChild(img);
+    removeDiv.appendChild(button);
+    
+    // delete function of button
+    button.addEventListener('click', function() {
+            li.remove(); // Remove the book from the DOM
+            // Remove from data array
+            const index = myLibrary.findIndex(b => b.id === item.id);
+            if (index > -1) {
+                myLibrary.splice(index, 1);
+            }
+    });
+
+    li.appendChild(titleDiv)
+    li.appendChild(authorDiv)
+    li.appendChild(readDiv)
+    li.appendChild(removeDiv)
+    
+    container.appendChild(li)
+  });
 }
 
 function addBookToLibrary() {
