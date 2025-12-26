@@ -16,8 +16,8 @@
             <div class="remove"><button><img src="/images/trash.svg" alt="delete Book"></button></div>
         </li>
     </ul>
-    <button id="buttonAddBook" type="button">Add Book</button>
-    <form action="https://httpbin.org/post" method="post" id="formAddBook">
+    <button id="buttonDisplayForm" type="button">+</button>
+    <form id="formAddBook">
         <div>
             <label for="addBookTitle">Book Title:</label>
             <input type="text" name="addBookTitle" id="addBookTitle">
@@ -27,7 +27,7 @@
             <input type="text" name="addAuthor" id="addAuthor">
         </div>
         
-        <button type="submit">Add</button>
+        <button type="button" id="buttonAddBook">Add</button>
     </form>
         
     <script src="script.js"></script>

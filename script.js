@@ -3,9 +3,18 @@
 const TestBook = new Book("Test Title", "Test Author", true);
 const TestBook2 = new Book("Test Title2", "Test Author2");
 
+// get DOM elements
 const myLibrary = [TestBook, TestBook2];
 const container = document.querySelector("#bookList");
+const buttonDisplayForm = document.querySelector("#buttonDisplayForm");
 
+const formAddBook = document.querySelector("#formAddBook");
+
+const addBookTitle = document.querySelector("#addBookTitle");
+const addAuthor = document.querySelector("#addAuthor");
+const buttonAddBook = document.querySelector("#buttonAddBook");
+
+// constructor for books
 function Book(title, author, read) {
   if (!new.target) {
     throw Error("You must use the 'new' operator to call the constructor");
@@ -15,7 +24,6 @@ function Book(title, author, read) {
   this.author = author;
   this.read = read;
 }
-
 
 function updateBookList() {
   // delete list elements
@@ -53,14 +61,15 @@ function updateBookList() {
     
     // delete function of button
     button.addEventListener('click', function() {
-            li.remove(); // Remove the book from the DOM
-            // Remove from data array
-            const index = myLibrary.findIndex(b => b.id === item.id);
-            if (index > -1) {
-                myLibrary.splice(index, 1);
-            }
+      li.remove(); // Remove the book from the DOM
+      // Remove from data array
+      const index = myLibrary.findIndex(b => b.id === item.id);
+      if (index > -1) {
+        myLibrary.splice(index, 1);
+      }
     });
 
+    // add elements to DOM
     li.appendChild(titleDiv)
     li.appendChild(authorDiv)
     li.appendChild(readDiv)
@@ -72,13 +81,29 @@ function updateBookList() {
 
 function addBookToLibrary() {
   // take params, create a book then store it in the array
-
+  // check if fields are not empty
+  if (!addBookTitle.value || !addAuthor.value) {
+    alert("Please fill in both fields.");
+    return;
+  }
+  const entry = new Book(addBookTitle.value, addAuthor.value, false);
+  myLibrary.push(entry);
+  addBookTitle.value = "";
+  addAuthor.value = "";
   updateBookList();
 }
 
-function deleteBook () {
-  // div.getAttribute("id");
-  updateBookList();
-}
+// Button to show and hide the Add Book form
+buttonDisplayForm.addEventListener("click", () => {
+  if (formAddBook.getAttribute("style") === "visibility: visible") {
+    formAddBook.setAttribute("style","visibility: hidden")
+  } else {
+  formAddBook.setAttribute("style","visibility: visible");
+  }
+});
 
+// button to add Book
+buttonAddBook.addEventListener("click", () => {addBookToLibrary()});
+
+// initial display of the booklist at pageload
 updateBookList();
