@@ -1,4 +1,17 @@
 
+// class for books
+class Book {
+  constructor (title, author, read){
+    if (!new.target) {
+      throw Error("You must use the 'new' operator to call the constructor");
+    }
+    this.id = crypto.randomUUID();
+    this.title = title;
+    this.author = author;
+    this.read = read;
+  }
+}
+
 // create Testbooks
 const TestBook = new Book("Test Title", "Test Author", true);
 const TestBook2 = new Book("Test Title2", "Test Author2");
@@ -13,17 +26,6 @@ const formAddBook = document.querySelector("#formAddBook");
 const addBookTitle = document.querySelector("#addBookTitle");
 const addAuthor = document.querySelector("#addAuthor");
 const buttonAddBook = document.querySelector("#buttonAddBook");
-
-// constructor for books
-function Book(title, author, read) {
-  if (!new.target) {
-    throw Error("You must use the 'new' operator to call the constructor");
-  }
-  this.id = self.crypto.randomUUID();
-  this.title = title;
-  this.author = author;
-  this.read = read;
-}
 
 function updateBookList() {
   // delete list elements
